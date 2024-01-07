@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
 import { Config } from '../config';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { Config } from '../config';
     }),
     AuthModule,
     UserModule,
+    CommonModule,
   ],
   controllers: [AppController],
   providers: [AppService],

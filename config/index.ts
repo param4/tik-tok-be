@@ -23,6 +23,8 @@ class BaseConfig {
     'i',
   );
 
+  public SALT_ROUNDS: number = parseInt(process.env.SALT_ROUNDS || '10', 10);
+
   public USERNAME_REGEX: RegExp = new RegExp(
     process.env.USERNAME_REGEX || '^[a-zA-Z0-9_]{4,}$',
     'i',
