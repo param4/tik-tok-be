@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { SignUpRequestDto } from './dto';
+import { SignInRequestDto, SignInResponseDto, SignUpRequestDto } from './dto';
 import { ApiCreatedResponse } from '@nestjs/swagger';
 import { SignUpResponseDto } from './dto';
 
@@ -19,5 +19,18 @@ export class AuthController {
     const userId = await this.authService.signUp(requestBody);
 
     return new SignUpResponseDto(userId);
+  }
+
+  @Post('sign-in')
+  @ApiCreatedResponse({
+    description: 'Logged in successfully.',
+    type: SignInResponseDto,
+  })
+  public async signIn(
+    @Body() requestBody: SignInRequestDto,
+  ): Promise<SignInResponseDto> {
+    const { user, accessToken } = await this.authService.signIn(requestBody);
+
+    return new SignInResponseDto(user, accessToken);
   }
 }

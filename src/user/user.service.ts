@@ -31,4 +31,20 @@ export class UserService {
     const insertionResult = await this.userRepository.insert(user);
     return insertionResult.identifiers[0].id;
   }
+
+  public async validateUserForSignIn(
+    email: string,
+    password: string,
+  ): Promise<User | null> {
+    const user = await this.userRepository.findOneBy({ email });
+    if (!user) return null;
+
+    const isPasswordValid = await this.passwordService.comparePassword(
+      password,
+      user.password,
+    );
+    if (!isPasswordValid) return null;
+
+    return user;
+  }
 }
