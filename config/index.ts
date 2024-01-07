@@ -30,6 +30,9 @@ class BaseConfig {
     'i',
   );
 
+  // JWT Config
+  public JWT_SECRET: string = process.env.JWT_SECRET || 'secret';
+
   public isProd() {
     return this.NODE_ENV === 'production';
   }
