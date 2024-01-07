@@ -4,10 +4,12 @@ import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { UserType } from './types';
 import { EmailAlreadyExistError, UsernameAlreadyExistError } from './errors';
+import { PasswordService } from 'src/common/password/password.service';
 
 @Injectable()
 export class UserService {
   constructor(
+    private readonly passwordService: PasswordService,
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
@@ -16,13 +18,15 @@ export class UserService {
       where: [{ email: user.email }, { username: user.username }],
     });
 
-    if (userfetchResult.email === user.email) {
+    if (userfetchResult?.email === user.email) {
       throw new EmailAlreadyExistError();
     }
 
-    if (userfetchResult.username === user.username) {
+    if (userfetchResult?.username === user.username) {
       throw new UsernameAlreadyExistError();
     }
+
+    user.password = await this.passwordService.hashPassword(user.password);
 
     const insertionResult = await this.userRepository.insert(user);
     return insertionResult.identifiers[0].id;
