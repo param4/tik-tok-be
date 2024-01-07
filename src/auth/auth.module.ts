@@ -5,11 +5,20 @@ import { UserService } from 'src/user/user.service';
 import { UserModule } from 'src/user/user.module';
 import { PasswordModule } from 'src/common/password/password.module';
 import { PasswordService } from 'src/common/password/password.service';
-import { JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
+import { Config } from '../../config';
 
 @Module({
-  imports: [UserModule, PasswordModule],
+  imports: [
+    UserModule,
+    PasswordModule,
+    JwtModule.register({
+      global: true,
+      secret: Config.JWT_SECRET,
+      signOptions: { expiresIn: Config.JWT_EXPIRATION_TIME },
+    }),
+  ],
   controllers: [AuthController],
-  providers: [AuthService, UserService, PasswordService, JwtService],
+  providers: [AuthService, UserService, PasswordService],
 })
 export class AuthModule {}

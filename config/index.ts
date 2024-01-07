@@ -33,6 +33,8 @@ class BaseConfig {
   // JWT Config
   public JWT_SECRET: string = process.env.JWT_SECRET || 'secret';
 
+  public JWT_EXPIRATION_TIME: string = process.env.JWT_EXPIRATION_TIME || '3d';
+
   public isProd() {
     return this.NODE_ENV === 'production';
   }
