@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { Config } from './config';
+import { Config } from '../config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,6 +12,6 @@ async function bootstrap() {
       forbidNonWhitelisted: Config.ERROR_ON_NON_ALLOWED_KEYS,
     }),
   );
-  await app.listen(3000);
+  await app.listen(Config.PORT);
 }
 bootstrap();
