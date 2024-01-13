@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './user.entity';
+import { User } from '../user.entity';
 import { Repository } from 'typeorm';
-import { UserType } from './types';
-import { EmailAlreadyExistError, UsernameAlreadyExistError } from './errors';
+import { UserType } from '../types';
+import { EmailAlreadyExistError, UsernameAlreadyExistError } from '../errors';
 import { PasswordService } from 'src/common/password/password.service';
 
 @Injectable()

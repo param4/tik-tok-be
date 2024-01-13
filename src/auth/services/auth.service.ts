@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
-import { SignInRequestDto, SignUpRequestDto } from './dto';
+import { UserService } from 'src/user/services/user.service';
+import { SignInRequestDto, SignUpRequestDto } from '../dto';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/user/user.entity';
-import { InvalidCrendtialsError, UserNotVerifiedError } from './errors';
+import { InvalidCrendtialsError, UserNotVerifiedError } from '../errors';
 import { Config } from 'config';
-import { JwtPayloadType } from './types';
+import { JwtPayloadType } from '../types';
 
 @Injectable()
 export class AuthService {
